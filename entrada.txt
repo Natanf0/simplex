@@ -1,0 +1,22 @@
+A seguir, a descrição da entrada esperada para o programa main.c:
+
+Considere o Problema de Programação Linear abaixo:
+
+PPL: maximize z = 70x + 50y
+     sujeito a: 4x + 3y <= 240
+                2x + y <= 100
+
+Na forma padrão:
+maximize z = 70x + 50y +0r + 0s
+sujeito a: 4x + 3y + 1r + 0s = 240
+           2x +  y + 0r + 1s = 100 
+
+Assim, o problema deve ser enviado no formato (responde as perguntas do programa na versão interativa):
+
+max
+4
+2
+70 50 0 0
+4 3 1 0
+2 1 0 1
+240 100 0 0

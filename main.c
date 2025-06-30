@@ -11,7 +11,7 @@ float* A;
 
 void printTableux(){
     char *str = malloc(nVar*10 + 1); memset(str, '-', nVar*10 + 6); str[nVar*10+6] = '\0';
-    printf("\nTableux:\n\n    ");
+    printf("\nTableux:\n\n     ");
 
     for(int i = 0; i<nVar; i++) printf("VNB%d  ", i);
     printf("   SBV\n");
@@ -60,7 +60,30 @@ int escolheVBSaiDaBase(int colunaPivo){
     return indice;
 }
 
-
+void atualizaVetorSolucao(){
+    // Função que atualiza o vetor X, que contém os coef. da solução
+    // Se for uma coluna de uma variável básica, só terá um elemento 1 e os demais 0. Nesse caso, a linha onde se encontra o 1 nessa coluna básica tem como solução a linha on vetor B
+    // Já se encontrar algum elemento diferente de zeros com 1 um, então aquela coluna não esta na base e tem valor zero no vetor X
+    for(int j = 0; j < nVar ; j++){
+        int cont = 0;
+        int linha = 0;
+        for(int i = 0; i < nRestricoes; i++){
+            if(matA[j+i*nVar] != 0.f && matA[j+i*nVar] != 1.f) {
+                cont=0;
+                break;
+            }
+            if(matA[j+i*nVar] == 1.f){
+                cont++;
+                linha=i;
+            } 
+        }
+        if(cont==1.f){ 
+            vetX[j]=vetB[linha];
+        }else{
+            vetX[j] = 0.f;
+        }
+    }
+}
 void simplex(){
     // escolhe VNB que deve entrar na base
     // escolher VB que vai deixar a base
@@ -97,16 +120,17 @@ void simplex(){
             vetB[i] = vetB[linhaPivo]*fator + vetB[i];
         }  
     }
+    
+    atualizaVetorSolucao();
+
     printTableux();
 }
 
 int verificaOtimalidade(){
-
-        for(int i = 0; i< nVar; i++){
-            if(vetC[i]<0) return 0; // se há algum coef. negativo na função objetivo, então não estamos no ótimo
-        }
-        return 1; // se todos são positivos, então estamos no ótimo
-    
+    for(int i = 0; i< nVar; i++){
+         if(vetC[i]<0) return 0; // se há algum coef. negativo na função objetivo, então não estamos no ótimo
+    }
+    return 1; // se todos são positivos, então estamos no ótimo
 }
 
 int main(){

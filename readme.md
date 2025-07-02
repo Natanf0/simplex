@@ -1,6 +1,6 @@
 Autor: Natan da S. Ferreira | 2025
 Otimização | Implementação do Algoritmo Simplex para solução de Problemas de Programação Linear
-
+Leia 'Relatório.pdf' para mais detalhes
 Há 2 formas de interagir com o programa:
 1. Interativa
 Após compilar o programa main.c, execute-o e interaja no terminal respondendo o que se pede.
